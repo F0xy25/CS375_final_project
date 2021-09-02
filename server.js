@@ -24,20 +24,32 @@ app.post("/upload", function(req,res){
             console.error(error);
         }
     })
+
+    let s3 = spawn('python', ['./aws.py', username, req.files.file.name, true])
+    //Take file saved locally
+    //add file to s3 under a specific file structure and username
+    //delete temp image from temp folder
 });
 
+app.get("/upload", function(req,res){
+    console.log("Getting Files")
 
+    let s3 = spawn('python', ['./aws.py', req.body.username, "", false])
+})
 
 app.post("/predict", function(req, res){
     //make ajax request to python script,
+    console.log("ENTER PREDICT")
     console.log(req.body)
     let model = req.body.model;
-    let image_src = req.body.file
+    let image_src = req.files.file
+    let image_filepath = __dirname+'/temp_img/' + req.files.file.name
     console.log(model);
     console.log(image_src);
+    console.log(image_filepath)
     //kick of child process that runs python script
     console.log("Starting Python script...");
-    let ml_data = spawn('python', ['./model-predict.py', model, image_src]);
+    let ml_data = spawn('python', ['./model-predict.py', model, image_filepath]);
 
     //collect data from script
     ml_data.stdout.on("data", function(data){

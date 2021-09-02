@@ -44,10 +44,7 @@ submitbutton.addEventListener("click", function (){
     //edit to send both file and json when post request is made
     fetch((reqURL), {
         method: 'POST',
-        headers: {
-            "Content-Type": 'application/json',
-        },
-        body: JSON.stringify(jsondata)
+        body: formData
     }).then(function (response){
         let returndiv = document.getElementById("message");
         if (response.status == 200){

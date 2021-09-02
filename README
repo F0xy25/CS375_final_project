@@ -1,7 +1,14 @@
 Code for CS375 Final Project
 
 
+For developers:
+Note that some files in the source code are greater than github's
+100MB file size rule, if you encounter issues, make sure to install github large
+file storage on your machine before pushing to master
+
 How to use:
+
+*Before running, put aws key in the /key folder, so that aws can connect*
 
 1.) Run node server.js in terminal
 2.) Visit http://localhost:3000/ in your browser
