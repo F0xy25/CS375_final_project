@@ -5,7 +5,7 @@ login_y.style.display = "none";
 login_n.style.display = "none";
 console.log("Invisible")
 let submitbutton = document.getElementById("submit")
-
+document.getElementById("img_table").style.display = "none"
 let user = "";
 let logged_in = false;
 
@@ -32,10 +32,15 @@ window.onload = function(){
     })
 }
 
+let history_button = document.getElementById("hist")
+
+history_button.addEventListener("click", function(){
+    window.location.pathname = "/history.html"
+})
 
 submitbutton.addEventListener("click", function (){
     let reqURL = "http://localhost:3000/upload.html"
-
+    let predict = 'http://localhost:3000/predict'
     let file_elem = document.getElementById("file");
     let model_elem = document.getElementById("model");
 
@@ -56,60 +61,85 @@ submitbutton.addEventListener("click", function (){
             Verbose = radios[i].value;
         }
     }
-    //password code, for any implementation
 
-    //let logged_in = false;
-
-    //password = await bcrypt.hash(password);
-
-    //const userpass = new FormData();
-    //userpass.append('username',Username);
-    //userpass.append('pass', password)
-    //for new users, create folder and file
-    //fetch(("http://localhost:3000/login"), {
-    //    method: "POST",
-    //    body = userpass
-    //}).then(function (response){
-    //    if (response.status == 200){
-    //        logged_in = true;
-    //    }
-    //});
-
-    //add code to check if all values are there, if not, change message body
-    //to bad request
-
-    //const jsondata = {file: File, model: Model, verbose: Verbose}
-    //console.log(jsondata)
-
-    //upload user selected file
-    if (logged_in == false){
-        console.log("CAN'T PROCEED, LOGIN FIRST");
-        let returndiv = document.getElementById("message");
-        returndiv.textContent = "CAN'T PROCEED, LOGIN FIRST";
-    }
-    else{
     const formData = new FormData();
     formData.append('file', File);
     formData.append('model', Model);
     formData.append('verbose', Verbose);
-    formData.append('username',Username)
+    formData.append('username',user)
     console.log(formData);
-    fetch(("http://localhost:3000/upload"), {
+
+    //upload user selected file
+    if (logged_in == false){
+        fetch((reqURL), {
+        method: "POST",
+        body: formData
+    });
+        fetch((predict), {
+            method: 'POST',
+            body: formData
+        }).then(function (response){
+            let returndiv = document.getElementById("message");
+            console.log(response)
+            if (response.status == 200){
+                document.getElementById("img_table").style.display = "inline"
+                //returndiv.textContent = "Success";
+                //let image_div = document.createElement("div");
+                let image_table = document.getElementById('img_table');
+                let img_label = document.createElement("label");
+                var row1 = document.createElement("tr")
+                var row2 = document.createElement("tr")
+                img_label.textContent = response.statusText
+                img_elem = document.createElement("img")
+                img_elem.src = response.statusText
+                row1.appendChild(img_label)
+                row2.appendChild(img_elem)
+                image_table.appendChild(row1)
+                image_table.appendChild(row2)
+                //document.body.append(image_div)
+            }
+                //load all images from temp
+                //for each function, process response differently, as output
+                //will be different
+    
+            
+            else{
+                returndiv.textContent = "Bad Request";
+            }
+        });
+    }
+    else{
+    
+    fetch((reqURL), {
         method: "POST",
         body: formData
     });
 
     //if file successfully uploaded, run next request
     //edit to send both file and json when post request is made
-    fetch((reqURL), {
+    fetch((predict), {
         method: 'POST',
         body: formData
     }).then(function (response){
         let returndiv = document.getElementById("message");
         console.log(response)
         if (response.status == 200){
-            returndiv.textContent = "Success";
+            document.getElementById("img_table").style.display = "inline"
+                //returndiv.textContent = "Success";
+                //let image_div = document.createElement("div");
+                let image_table = document.getElementById('img_table');
+                let img_label = document.createElement("label");
+                var row1 = document.createElement("tr")
+                var row2 = document.createElement("tr")
+                img_label.textContent = response.statusText
+                img_elem = document.createElement("img")
+                img_elem.src = response.statusText
+                row1.appendChild(img_label)
+                row2.appendChild(img_elem)
+                image_table.appendChild(row1)
+                image_table.appendChild(row2)
 
+            
             //load all images from temp
             //for each function, process response differently, as output
             //will be different

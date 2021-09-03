@@ -20,13 +20,13 @@
 <body class="bg-light">
     <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
         <div class="container"><a class="navbar-brand" href="index.html">Vision AI</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"></button>
-            <div class="collapse navbar-collapse" id="navcol-1"></div><button class="btn btn-primary" type="button">View History</button>
+            <div class="collapse navbar-collapse" id="navcol-1"></div><button id="hist" class="btn btn-primary" type="button">View History</button>
         </div>
     </nav>
     <section class="text-center bg-light features-icons text-center">
         <div id="login_y" class="alert alert-success alert-dismissible account-status" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span><strong>You are currently signed in as {username}</strong></span></div>
         <div id="login_n" class="alert alert-danger alert-dismissible account-status" role="alert"><button  type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span><strong>You are currently not signed in</strong></span></div>
-        <form>
+        
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -61,7 +61,9 @@
                 </div>
             </div>
             <button class="btn btn-primary" type="button" id="submit">Analyze</button>
-        </form>
+        <div id="images">
+            <table id="img_table">
+            </table></div>
     </section>
     <footer class="bg-light footer">
         <div class="container">

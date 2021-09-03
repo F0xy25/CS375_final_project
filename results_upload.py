@@ -33,7 +33,7 @@ def get_file():
     username = 3
 
 
-def folder_check(s3,username):
+def folder_check(s3_client,username):
     #bucket = s3.Bucket('cs375ml')
     #folders = bucket.list("","/")
     folders = s3_client.list_objects_v2(Bucket='cs375ml', Delimiter='/', Prefix='')
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     print(sys.argv[0],sys.argv[1],sys.argv[2])
 
     [s3, s3_client] = configure()
-    already_user = folder_check(s3, sys.argv[1])
+    already_user = folder_check(s3_client, sys.argv[1])
     if already_user == True:
         print("ALREADY USER")
         filename = sys.argv[2]
@@ -79,6 +79,8 @@ if __name__ == "__main__":
         splt_orig_folder = orig_folder.split(".")
         #imbed_folder(sys.argv[1], split_name[0])
         put_file((file_folder+"/"+sys.argv[2]),(sys.argv[1]+"/"+splt_orig_folder[0]), sys.argv[2])
+        for f in os.listdir(os.getcwd()+"/temp_img"):
+            os.remove(f)
     else:
         print("NEW USER")
         filename = sys.argv[2]
@@ -88,3 +90,6 @@ if __name__ == "__main__":
         create_folder(sys.argv[1])
         #imbed_folder(sys.argv[1], split_name[0])
         put_file((file_folder+"/"+sys.argv[2]),(sys.argv[1]+"/"+splt_orig_folder[0]), sys.argv[2])
+        
+        for f in os.listdir(os.getcwd()+"/temp_img"):
+            os.remove(f)

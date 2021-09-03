@@ -8,15 +8,26 @@ const hostname = "localhost";
 var logged_in_user = "none";
 const fs = require("fs")
 const spawn = require('child_process').spawn;
-
+const path = require("path")
 const fileupload = require('express-fileupload')
 
 app.use(express.static("public_html"))
 app.use(express.json())
 app.use(fileupload());
 
+app.use("/temp_img", express.static('temp_img'));
 
-
+//empty temp_img on startup
+let img_path = __dirname+"/temp_img"
+fs.readdir(img_path, (err, files) => {
+    if (err) throw err;
+  
+    for (const file of files) {
+      fs.unlink(path.join(img_path, file), err => {
+        if (err) throw err;
+      });
+    }
+  });
 
 app.post("/login.html", function(req, res){
     let user = req.body.username;
@@ -123,16 +134,36 @@ app.post("/upload.html", function(req,res){
         }
     })
     let upload = "upload"
+    if (username.trim() === ""){
+        console.log("NOT SIGNED IN USER")
+    }else{
     let s3 = spawn('python', ['./aws.py', username, req.files.file.name, upload])
-    //Take file saved locally
-    //add file to s3 under a specific file structure and username
-    //delete temp image from temp folder
+    }
 });
 
-app.get("/upload", function(req,res){
-    console.log("Getting Files")
-    let upload = "upload"
-    let s3 = spawn('python', ['./aws.py', req.body.username, "", upload])
+//clear temp_img
+//download all processed files into temp_img
+//return list of filenames
+app.post("/upload", function(req,res){
+    console.log("BODY",req.body)
+    let s3 = spawn('python', ['./fetch.py', req.body.user])
+
+    var hist_files = []
+    i = 2;
+    s3.stdout.on("data", function(data){
+        console.log("Printing from Python...");
+        console.log(data.toString());
+
+        let files = data.toString();
+        files = files.split("\n")
+        while (files[files.length-i].trim() !== "poss_files"){
+            hist_files.push(files[files.length-i])
+            i = i+1;
+        }
+        res.statusMessage = hist_files
+        res.status(200);
+        res.send()
+    })
 });
 
 app.post("/predict", function(req, res){
@@ -142,7 +173,7 @@ app.post("/predict", function(req, res){
     let model = req.body.model;
     let image_src = req.files.file
     let image_filepath = __dirname+'/temp_img/' + req.files.file.name
-    let new_filepath = "new_"+req.files.file.name
+    let new_filepath = "new_"+model+"_"+req.files.file.name
     let username = req.body.username
     console.log(model);
     console.log(image_src);
@@ -157,7 +188,12 @@ app.post("/predict", function(req, res){
         console.log(data.toString());
     
     //look at results files from temp_img and upload to s3 for the user
-    let processed_img_file = __dirname+'/temp_img/' + new_filepath
+    let processed_img_file = '/temp_img/' + new_filepath
+    if (username.trim() === ""){
+        res.status(200)
+        res.statusMessage = processed_img_file
+        res.send()
+    }else{
     let upload_results = spawn('python', ['./results_upload.py',username, new_filepath, req.files.file.name])
     //console.log("Python process terminated.");
 
@@ -166,24 +202,23 @@ app.post("/predict", function(req, res){
         console.log("Printing from Python...");
         console.log(data.toString());
     //Send file back to client
-    fs.readFile((processed_img_file), function(err, content){
-        if (err){
-            res.writeHead(404, {"Content-type": "text/html"});
-            res.end("<h1> No image found <h1>");
-        } else {
-            res.writeHead(200, {"Content-type": "image/jpg"});
-            res.end(content);
-        }
+    //fs.readFile((processed_img_file), function(err, content){
+    //    if (err){
+    //        res.writeHead(404, {"Content-type": "text/html"});
+    //        res.end("<h1> No image found <h1>");
+    //    } else {
+    //        res.writeHead(200, {"Content-type": "image/jpg"});
+    //        res.end(content);
+    //    }
+        res.status(200)
+        res.statusMessage = processed_img_file
+        res.send()
     })
+    }
     })
     });
-});
-
-app.get("/predict", function(req, res){
 
 
-
-});
 
 app.listen(port, hostname, () => {
     console.log(`Listening at: http://${hostname}:${port}`);
