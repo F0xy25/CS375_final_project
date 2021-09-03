@@ -133,8 +133,68 @@ def draw_boxes(image, boxes, class_names, scores, max_boxes=10, min_score=0.01):
         np.copyto(image, np.array(image_pil))
   return image
 
-def pose_visualize(keypoints, filename):
+
+def create_pose_dict(keypoints):
+    pose_dict = {}
+    
+    for i in range(0,6):
+        person = keypoints[i]
+        if person[55] > .5:
+            temp_person = {}
+            temp_person['nose'] = person[0,1,2]
+            temp_person['left_eye'] = person[3,4,5]
+            temp_person['right_eye'] = person[6,7,8]
+            temp_person['left_ear'] = person[9,10,11]
+            temp_person['right_ear'] = person[12,13,14]
+            temp_person['left_shoulder'] = person[15,16,17]
+            temp_person['right_shoulder'] = person[18,19,20]
+            temp_person['left_elbow'] = person[21,22,23]
+            temp_person['right_elbow'] = person[24,25,26]
+            temp_person['left_wrist'] = person[27,28,29]
+            temp_person['right_wrist'] = person[30,31,32]
+            temp_person['left_hip'] = person[33,34,35]
+            temp_person['right_hip'] = person[36,37,38]
+            temp_person['left_knee'] = person[39,40,41]
+            temp_person['right_knee'] = person[42,43,44]
+            temp_person['left_ankle'] = person[45,46,47]
+            temp_person['right_ankle'] = person[48,49,50]
+            pose_dict["person{}".format(i)] = temp_person
+        else:
+            continue
+
+    return pose_dict
+
+def draw_pose(image,pose_dict,new_filename):
+    image = image.astype(np.uint8)
+    image = image*255
+    image = Image.fromarray(image)
+    draw = ImageDraw.Draw(image)
+    
+    for each_person in pose_dict.keys():
+        for each_anchor in each_person.keys():
+            [x,y,c] = pose_dict[each_person][each_anchor]
+            draw.ellipse((x-5,y-5,x+5,y+5),fill="Green",outline="Green")
+        #draw lines connecting points
+        #draw.line([pose_dict[each_person]["nose"][0],pose_dict[each_person]["nose"][1],pose_dict[each_person]["left_eye"][0],pose_dict[each_person]["left_eye"][0]])
+
+    #im_width, im_height = image.size
+    #(left, right, top, bottom) = (xmin * im_width, xmax * im_width,
+    #                            ymin * im_height, ymax * im_height)
+    #raw.line([(left, top), (left, bottom), (right, bottom), (right, top),
+    #         (left, top)],
+    #        width=thickness,
+    #        fill=color)
+    new_filename = os.getcwd()+"/temp_img/"+new_filename
+    image.save(new_filename, format='JPEG', quality=100)
+
+    return 
+def pose_visualize(image,keypoints, new_filename):
     #take POSE model output, save necessary info to
+    #1,5,56
+    #first 17*3 are keypoints y,x,confidence
+    pose_dict = create_pose_dict(keypoints[0])
+    
+    draw_pose(image[0].numpy(), pose_dict, new_filename)
      
     return
 
@@ -220,9 +280,10 @@ def predict():
 
         #Run model inference
         outputs = movenet(image)
-        #output is a [1,1,17,3] tensor
+        #output is a [1,6,56] tensor
         keypoints = outputs['output_0']
-        print(keypoints)
+        pose_visualize(image,keypoints, sys.argv[3])
+        #print(keypoints)
 
     elif sys.argv[1] == "FOOD":
         #https://tfhub.dev/google/seefood/segmenter/mobile_food_segmenter_V1/1
