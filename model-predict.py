@@ -4,7 +4,6 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import numpy as np 
 import pandas as pd 
-import pickle
 import sys
 from PIL import Image
 from PIL import ImageColor
@@ -13,7 +12,6 @@ from PIL import ImageFont
 from PIL import ImageOps
 import os
 import sys
-import json
 
 #kick of instance to lambda function that is called through API Gateway
 #TODO: Need to make folders in code that contain the downloaded models, as tf.hub naturally loads to var folder and

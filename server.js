@@ -29,6 +29,12 @@ fs.readdir(img_path, (err, files) => {
     }
   });
 
+  //run python dependencies script
+let dependencies = spawn('python', ['./dependencies.py'])
+dependencies.stdout.on("data", function(data){
+    console.log(data.toString());
+});
+
 app.post("/login.html", function(req, res){
     let user = req.body.username;
     let pass = req.body.pass;
