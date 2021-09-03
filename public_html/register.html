@@ -26,12 +26,12 @@
     <section class="text-center bg-light">
         <h1>Register an account</h1>
         <section class="login-clean">
-            <form method="post">
+            <form method="post" id="myform">
                 <h2 class="visually-hidden">Login Form</h2>
                 <div class="illustration"><i class="icon ion-key"></i></div>
-                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Register</button></div>
+                <div class="mb-3"><input id="email" class="form-control" type="email" name="email" placeholder="Email"></div>
+                <div class="mb-3"><input id='password'class="form-control" type="password" name="password" placeholder="Password"></div>
+                <div class="mb-3"><button id='submit'class="btn btn-primary d-block w-100" type="submit" onsubmit="return stopsubmit()">Register</button></div>
             </form>
         </section>
     </section>
@@ -51,6 +51,7 @@
             </div>
         </div>
     </footer>
+    <script src="assets/js/register.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
 </body>

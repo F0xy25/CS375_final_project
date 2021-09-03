@@ -82,18 +82,25 @@ if __name__ == "__main__":
     #where file is located: /temp_image
     file_folder = os.getcwd()+"/temp_img"
 
-    print("ARGUMENTS")
+    #print("ARGUMENTS")
     print(sys.argv[0],sys.argv[1],sys.argv[2])
-    print(type(sys.argv[3]))
+    #print(type(sys.argv[3]))
     [s3, s3_client] = configure()
     already_user = folder_check(s3, sys.argv[1])
-    print("ALREADY USER",already_user)
+    #print("ALREADY USER",already_user)
     if already_user == True:
         if ((sys.argv[3]) == "login"):
             print("USER ALREADY FOUND")
             print("PASS MATCH")
             pass_match = compare_hash(s3, sys.argv[1], sys.argv[2])
+            print(already_user)
             print(pass_match)
+        
+        elif (sys.argv[3] == 'register'):
+            #run to break if user already registered
+            print("USER ALREADY EXISTS")
+            print("False")
+            print("False")
         else:
             print("ELSE")
             filename = sys.argv[2]
@@ -101,11 +108,21 @@ if __name__ == "__main__":
             imbed_folder(sys.argv[1], split_name[0])
             put_file((file_folder+"/"+sys.argv[2]),(sys.argv[1]+"/"+split_name[0]), sys.argv[2])
     else:
-        create_folder(sys.argv[1])
+        
         if (sys.argv[3] == "login"):
+            #print("PLACE HASH")
+            #place_hash(s3, sys.argv[1], sys.argv[2])
+            pass_match = compare_hash(s3, sys.argv[1], sys.argv[2])
+            print(already_user)
+            print(pass_match)
+        elif (sys.argv[3] == 'register'):
+            create_folder(sys.argv[1])
             print("PLACE HASH")
             place_hash(s3, sys.argv[1], sys.argv[2])
+            print("False")
+            print("True")
         else:
+            create_folder(sys.argv[1])
             print("ELSE")
             filename = sys.argv[2]
             split_name = filename.split(".")

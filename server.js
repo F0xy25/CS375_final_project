@@ -19,46 +19,96 @@ app.use(fileupload());
 //    await bcrypt.hash(password)
 //}
 
-app.get("/login", function(req, res){
+app.post("/login.html", function(req, res){
     let user = req.body.username;
     let pass = req.body.pass;
+    
 
     //CryptoJS.AES.decrypt(code, CryptoJS.enc.Utf8.parse('your secret key'), { iv }).toString(CryptoJS.enc.Utf8)
     //pass = encrypt(pass);
     let new_user = "login"
-
+    
+    if (typeof user === "undefined" || typeof pass === "undefined"){
+        console.log("UNDEFINED")
+        //res.status(400);
+        //res.redirect("/login.html")
+        //res.end()
+    }
+    else{
     let login = spawn('python', ['./aws.py', user, pass, new_user])
 
     login.stdout.on("data", function(data){
         console.log("Printing from Python...");
         console.log(data.toString());
-        res.status(200)
+        let output = data.toString();
+        output = output.split("\n")
+        let truth = output[output.length -2]
+        let already_user = output[output.length -3]
+        console.log("TRUTH",truth)
+        console.log(typeof truth)
+        if (truth.trim() === "True" && already_user.trim() === "True"){
+        console.log("Passed")
+        res.status(200);
+        //res.redirect('/upload.html')
         res.send()
+        }else{
+            console.log("Failed")
+            res.status(400);
+            //res.redirect('/login.html')
+            res.send()
+        }
     });
-    
-
+}
 });
 
-app.post("/login", function(req,res){
-    //add new user password to 
-    let user = req.body.username
-    let pass = req.body.pass
 
+app.post("/register.html", function(req, res){
+    let user = req.body.username;
+    let pass = req.body.pass;
+    
+
+    //CryptoJS.AES.decrypt(code, CryptoJS.enc.Utf8.parse('your secret key'), { iv }).toString(CryptoJS.enc.Utf8)
     //pass = encrypt(pass);
-    let new_user = "login";
+    let new_user = "register"
+    
+    if (typeof user === "undefined" || typeof pass === "undefined"){
+        console.log("UNDEFINED")
+        //res.status(400);
+        //res.redirect("/login.html")
+        //res.end()
+    }
+    else{
     let login = spawn('python', ['./aws.py', user, pass, new_user])
 
     login.stdout.on("data", function(data){
         console.log("Printing from Python...");
         console.log(data.toString());
-        res.status(200)
+        let output = data.toString();
+        output = output.split("\n")
+        let truth = output[output.length -2]
+        let already_user = output[output.length -3]
+        console.log("TRUTH",truth)
+        console.log(typeof truth)
+        if (truth.trim() === "True" && already_user.trim() === "False"){
+        console.log("Passed")
+        res.status(200);
+        //res.redirect('/upload.html')
         res.send()
+        }else{
+            console.log("Failed")
+            res.status(400);
+            //res.redirect('/login.html')
+            res.send()
+        }
     });
-    
+}
 });
 
 
-app.post("/upload", function(req,res){
+
+
+
+app.post("/upload.html", function(req,res){
     console.log("Upload File");
     console.log(req.files.file);
     let username = req.body.username

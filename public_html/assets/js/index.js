@@ -4,6 +4,8 @@
 //    await bcrypt.hash(password)
 //}
 
+
+
 let submitbutton = document.getElementById("submit");
 
 let loginbutton = document.getElementById("login")
