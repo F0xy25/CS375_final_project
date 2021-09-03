@@ -5,7 +5,7 @@ const app = express();
 //let ajax = require("ajax");
 const port = 3000;
 const hostname = "localhost";
-
+var logged_in_user = "none";
 const fs = require("fs")
 const spawn = require('child_process').spawn;
 
@@ -15,17 +15,14 @@ app.use(express.static("public_html"))
 app.use(express.json())
 app.use(fileupload());
 
-//const encrypt = async (password) => {
-//    await bcrypt.hash(password)
-//}
+
+
 
 app.post("/login.html", function(req, res){
     let user = req.body.username;
     let pass = req.body.pass;
     
 
-    //CryptoJS.AES.decrypt(code, CryptoJS.enc.Utf8.parse('your secret key'), { iv }).toString(CryptoJS.enc.Utf8)
-    //pass = encrypt(pass);
     let new_user = "login"
     
     if (typeof user === "undefined" || typeof pass === "undefined"){
@@ -49,6 +46,7 @@ app.post("/login.html", function(req, res){
         if (truth.trim() === "True" && already_user.trim() === "True"){
         console.log("Passed")
         res.status(200);
+        logged_in_user = user;
         //res.redirect('/upload.html')
         res.send()
         }else{
@@ -67,8 +65,7 @@ app.post("/register.html", function(req, res){
     let pass = req.body.pass;
     
 
-    //CryptoJS.AES.decrypt(code, CryptoJS.enc.Utf8.parse('your secret key'), { iv }).toString(CryptoJS.enc.Utf8)
-    //pass = encrypt(pass);
+
     let new_user = "register"
     
     if (typeof user === "undefined" || typeof pass === "undefined"){
@@ -92,6 +89,7 @@ app.post("/register.html", function(req, res){
         if (truth.trim() === "True" && already_user.trim() === "False"){
         console.log("Passed")
         res.status(200);
+        logged_in_user = user;
         //res.redirect('/upload.html')
         res.send()
         }else{
@@ -105,7 +103,12 @@ app.post("/register.html", function(req, res){
 });
 
 
-
+app.post("/user", function(req, res){
+    console.log("User:", logged_in_user)
+    res.status(200)
+    res.statusMessage = logged_in_user
+    res.send()
+});
 
 
 app.post("/upload.html", function(req,res){

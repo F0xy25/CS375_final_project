@@ -24,8 +24,8 @@
         </div>
     </nav>
     <section class="text-center bg-light features-icons text-center">
-        <div class="alert alert-success alert-dismissible account-status" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span><strong>You are currently signed in as {username}</strong></span></div>
-        <div class="alert alert-danger alert-dismissible account-status" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span><strong>You are currently not signed in</strong></span></div>
+        <div id="login_y" class="alert alert-success alert-dismissible account-status" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span><strong>You are currently signed in as {username}</strong></span></div>
+        <div id="login_n" class="alert alert-danger alert-dismissible account-status" role="alert"><button  type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span><strong>You are currently not signed in</strong></span></div>
         <form>
             <div class="container">
                 <div class="row">
@@ -49,8 +49,8 @@
                     <div class="col">
                         <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
                             <div class="d-flex features-icons-icon"><i class="icon-question m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
-                            <h3>3) Verbose output?</h3>
-                            <p>Describe here was a verbose output is</p>
+                            <h3>3) Save log file?</h3>
+                            <p>Save a copy of the model output text to AWS</p>
                         </div><div>
                             <input type="radio" name="Verbose" value="yes">
                             <label>Yes</label>
@@ -79,6 +79,7 @@
             </div>
         </div>
     </footer>
+    <script src="assets/js/upload.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
 </body>
