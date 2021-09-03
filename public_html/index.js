@@ -11,6 +11,7 @@ submitbutton.addEventListener("click", function (){
     let File = file_elem.files[0];
     let Model = model_elem.value;
 
+    let Username = document.getElementById("user").value;
     //check the value of the radio buttons, if one is clicked, that is text
 
     let radios = document.getElementsByName("Verbose");
@@ -26,14 +27,15 @@ submitbutton.addEventListener("click", function (){
     //add code to check if all values are there, if not, change message body
     //to bad request
 
-    const jsondata = {file: File, model: Model, verbose: Verbose}
-    console.log(jsondata)
+    //const jsondata = {file: File, model: Model, verbose: Verbose}
+    //console.log(jsondata)
 
     //upload user selected file
     const formData = new FormData();
     formData.append('file', File);
     formData.append('model', Model);
     formData.append('verbose', Verbose);
+    formData.append('username',Username)
     console.log(formData);
     fetch(("http://localhost:3000/upload"), {
         method: "POST",
@@ -47,6 +49,7 @@ submitbutton.addEventListener("click", function (){
         body: formData
     }).then(function (response){
         let returndiv = document.getElementById("message");
+        console.log(response)
         if (response.status == 200){
             returndiv.textContent = "Success";
 
