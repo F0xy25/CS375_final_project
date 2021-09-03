@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Vision AI - Upload</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+        <div class="container"><a class="navbar-brand" href="index.html">Vision AI</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"></button>
+            <div class="collapse navbar-collapse" id="navcol-1"></div><button id="hist" class="btn btn-primary" type="button">View History</button>
+        </div>
+    </nav>
+    <section class="text-center bg-light features-icons text-center">
+        <div id="login_y" class="alert alert-success alert-dismissible account-status" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span><strong>You are currently signed in as {username}</strong></span></div>
+        <div id="login_n" class="alert alert-danger alert-dismissible account-status" role="alert"><button  type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span><strong>You are currently not signed in</strong></span></div>
+        
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                            <div class="d-flex features-icons-icon"><i class="icon-cloud-upload m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                            <h3>1) Upload an Image</h3>
+                            <input id="file" type="file" name="file" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                            <div class="d-flex features-icons-icon"><i class="icon-graph m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                            <h3>2) Select a model</h3><select id="model" name="model">
+                                <option value="">Please select model to test</option>
+                                <option value="MOBILENET">Mobilenet V2</option>
+                                <option value="FOOD">Food Image Segmentation</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                            <div class="d-flex features-icons-icon"><i class="icon-question m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                            <h3>3) Save log file?</h3>
+                            <p>Save a copy of the model output text to AWS</p>
+                        </div><div>
+                            <input type="radio" name="Verbose" value="yes">
+                            <label>Yes</label>
+                            <input type="radio" name="Verbose" value="no">
+                            <label>No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="button" id="submit">Analyze</button>
+        <div id="images">
+            <table id="img_table">
+            </table></div>
+    </section>
+    <footer class="bg-light footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 text-center text-lg-start my-auto h-100">
+                    <p class="text-muted small mb-4 mb-lg-0">Build with&nbsp;❤️by Gavin Fox, Pranav Bhogal, and Faraaz Khan for CS375</p>
+                </div>
+                <div class="col-lg-6 text-center text-lg-end my-auto h-100">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"></li>
+                        <li class="list-inline-item"><a href="#"></a></li>
+                        <li class="list-inline-item"><a href="https://github.com/F0xy25/CS375_final_project" target="_blank"><i class="fa fa-github fa-2x fa-fw"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/upload.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+</body>
+
+</html>

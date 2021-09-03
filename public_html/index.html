@@ -1,50 +1,85 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>ML_test</title>
-
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Vision AI - Home</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-<h1>Your Exercise 2b Solutions</h1>
-
-<h2>Tables solutions</h2>
-    
-<table id="number-grid"></table>
-
-<p>Please select a model that you would like to run and source file:</p>
-
-<div class="form">
-	<div>
-		<label for="file">Filename:</label>
-		<input id="file" type="file" name="file" accept="image/*">
-	</div>
-	<div>
-		<label for="model">Model:</label>
-		<select id="model" name="model">
-			<option value="">Please select model to test</option>
-			<option value="resnet">Resnet</option>
-			<option value="mobilenet">Mobilenet V2</option>
-			<option value="U-net">U-net</option>
-            <option value="COCO">COCO</option>
-			<option value="RCNN">RCNN</option>
-		</select>
-	</div>
-	<div>
-		<label>Verbose Output?</label>
-		<input type="radio" name="Verbose" value="yes">
-		<label>Yes</label>
-		<input type="radio" name="Verbose" value="no">
-		<label>No</label>
-	</div>
-	<button id="submit">Test Model</button>
-</div>
-
-<div id="message"></div>
-
-<script src="/index.js"></script>
-
+    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+        <div class="container"><a class="navbar-brand" href="index.html">Vision AI</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"></button>
+            <div class="collapse navbar-collapse" id="navcol-1"></div>
+        </div>
+    </nav>
+    <header class="text-center text-white masthead" style="background: url('assets/img/brain.jpg')no-repeat center center;background-size: cover;">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto position-relative">
+                    <h1 class="mb-5">&nbsp;Derive insights from your images&nbsp;</h1><a class="btn btn-primary" role="button" href="proceed.html">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="text-center bg-light features-icons">
+        <h1>How does it work?</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-cloud-upload m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                        <h3>1) Upload an Image</h3>
+                        <p class="lead mb-0">Login to save your image to our cloud, or continue as a guest!</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-graph m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                        <h3>2) Select a ML model</h3>
+                        <p class="lead mb-0">Login to save your image to our cloud, or continue as a guest!</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-chart m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                        <h3>3) View&nbsp;visualization</h3>
+                        <p class="lead mb-0">Our service will analyze your image and return a visualization of the image</p>
+                    </div>
+                </div>
+            </div>
+        </div><a class="btn btn-primary" role="button" href="proceed.html">Get Started</a>
+    </section>
+    <footer class="bg-light footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 text-center text-lg-start my-auto h-100">
+                    <p class="text-muted small mb-4 mb-lg-0">Build with&nbsp;❤️by Gavin Fox, Pranav Bhogal, and Faraaz Khan for CS375</p>
+                </div>
+                <div class="col-lg-6 text-center text-lg-end my-auto h-100">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"></li>
+                        <li class="list-inline-item"><a href="#"></a></li>
+                        <li class="list-inline-item"><a href="https://github.com/F0xy25/CS375_final_project" target="_blank"><i class="fa fa-github fa-2x fa-fw"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--script src="assets/js/index.js"></script-->
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
 </body>
+
 </html>

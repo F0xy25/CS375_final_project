@@ -1,10 +1,37 @@
 Code for CS375 Final Project
 
+Purpose:
+
+This project is inspired by Google Vision's in browser Machine Learning classifier that can be seen at https://cloud.google.com/vision.
+This site hosted by Google is meant to be an advertisement for the capabilities of their Cloud Vision platform. We have attempted to create a
+similiar site to this product. 
+
+
+Major Technologies:
+
+This project makes use of a few important technologies:
+
+1.) Tensorflow Pre-built models (TF-Hub)
+    - This project takes advantage of Tensorflows pre-built machine learning models that are hosted at _____. Even though the team has the capabilities 
+    to develop machine learning models that would meet the requirements, it was determined that, given the scope and overal timeline of this project,
+    it would be more time efficient to use robust, industry-level models that are easy to load and run. Additionally, this allowed us to use models from 
+    various image related problems, such as semantic segmentation of food based on ingredients, Multi-person pose detection in images, and a general-purpose
+    object detection model built on the MobileNet_V2 framework. 
+
+2.) AWS 
+    - For this project, we decided that the best way to provide the user the best experience would be to provide signed in users the ability to store images into the cloud, 
+    specifically in an AWS S3 bucket that has folders for each user, containing all previously run images and results. This same S3 bucket is also used for storing sign in information
+    for each user.
 
 How to use:
 
-1.) Run node server.js in terminal
-2.) Visit http://localhost:3000/ in your browser
-3.) Proceed to run the program
+*Before running, put aws key in the /key folder, so that aws can connect*
+This is required, and will only be provided by Gavin Fox (gdf28@drexel.edu).
+If you would like access to this code and have not recieved this key, please reach out.
 
-Includes following files in the repository:
+1.) Navigate to Final_Project_Code wherever it may be stored on your machine
+2.) Run node server.js in terminal
+3.) Visit http://localhost:3000/ in your browser
+4.) Proceed to interact with the program!
+
+
