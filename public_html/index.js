@@ -7,10 +7,8 @@
 let submitbutton = document.getElementById("submit");
 
 let loginbutton = document.getElementById("login")
-
+let logged_in = false;
 loginbutton.addEventListener("click", function(){
-    
-    let logged_in = false;
     let Username = document.getElementById("user").value;
     let password = document.getElementById("pass").value;
   //  password = encrypt(password);
@@ -60,7 +58,6 @@ submitbutton.addEventListener("click", function (){
         }
     }
     //password code, for any implementation
-    let password = "123abc";
 
     //let logged_in = false;
 
@@ -86,6 +83,12 @@ submitbutton.addEventListener("click", function (){
     //console.log(jsondata)
 
     //upload user selected file
+    if (logged_in == false){
+        console.log("CAN'T PROCEED, LOGIN FIRST");
+        let returndiv = document.getElementById("message");
+        returndiv.textContent = "CAN'T PROCEED, LOGIN FIRST";
+    }
+    else{
     const formData = new FormData();
     formData.append('file', File);
     formData.append('model', Model);
@@ -117,5 +120,5 @@ submitbutton.addEventListener("click", function (){
             returndiv.textContent = "Bad Request";
         }
     });
-
+    }
 });

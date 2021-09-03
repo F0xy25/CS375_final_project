@@ -25,7 +25,7 @@ app.get("/login", function(req, res){
 
     //CryptoJS.AES.decrypt(code, CryptoJS.enc.Utf8.parse('your secret key'), { iv }).toString(CryptoJS.enc.Utf8)
     //pass = encrypt(pass);
-    let new_user = false
+    let new_user = "login"
 
     let login = spawn('python', ['./aws.py', user, pass, new_user])
 
@@ -45,7 +45,7 @@ app.post("/login", function(req,res){
     let pass = req.body.pass
 
     //pass = encrypt(pass);
-    let new_user = true;
+    let new_user = "login";
     let login = spawn('python', ['./aws.py', user, pass, new_user])
 
     login.stdout.on("data", function(data){
@@ -69,8 +69,8 @@ app.post("/upload", function(req,res){
             console.error(error);
         }
     })
-
-    let s3 = spawn('python', ['./aws.py', username, req.files.file.name, true])
+    let upload = "upload"
+    let s3 = spawn('python', ['./aws.py', username, req.files.file.name, upload])
     //Take file saved locally
     //add file to s3 under a specific file structure and username
     //delete temp image from temp folder
@@ -78,9 +78,9 @@ app.post("/upload", function(req,res){
 
 app.get("/upload", function(req,res){
     console.log("Getting Files")
-
-    let s3 = spawn('python', ['./aws.py', req.body.username, "", false])
-})
+    let upload = "upload"
+    let s3 = spawn('python', ['./aws.py', req.body.username, "", upload])
+});
 
 app.post("/predict", function(req, res){
     //make ajax request to python script,
@@ -119,7 +119,7 @@ app.post("/predict", function(req, res){
             res.end("<h1> No image found <h1>");
         } else {
             res.writeHead(200, {"Content-type": "image/jpg"});
-            res.send(content);
+            res.end(content);
         }
     })
     })

@@ -89,12 +89,8 @@ if __name__ == "__main__":
     already_user = folder_check(s3, sys.argv[1])
     print("ALREADY USER",already_user)
     if already_user == True:
-        if (bool(sys.argv[3]) == True):
+        if ((sys.argv[3]) == "login"):
             print("USER ALREADY FOUND")
-            print("PASS MATCH")
-            pass_match = compare_hash(s3, sys.argv[1], sys.argv[2])
-            print(pass_match)
-        elif (bool(sys.argv[3]) == False):
             print("PASS MATCH")
             pass_match = compare_hash(s3, sys.argv[1], sys.argv[2])
             print(pass_match)
@@ -106,11 +102,9 @@ if __name__ == "__main__":
             put_file((file_folder+"/"+sys.argv[2]),(sys.argv[1]+"/"+split_name[0]), sys.argv[2])
     else:
         create_folder(sys.argv[1])
-        if (bool(sys.argv[3]) == True):
+        if (sys.argv[3] == "login"):
             print("PLACE HASH")
             place_hash(s3, sys.argv[1], sys.argv[2])
-        elif (bool(sys.argv[3]) == False):
-            print("ALREADY A USER")
         else:
             print("ELSE")
             filename = sys.argv[2]
