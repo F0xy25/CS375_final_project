@@ -8,6 +8,9 @@ subprocess.check_call([sys.executable, '-m', 'pip', 'install',
 'tensorflow'])
 
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
+'tensorflow_hub'])
+
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
 'Pillow'])
 
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
