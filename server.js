@@ -1,5 +1,6 @@
 const exp = require("constants");
 const express = require("express");
+const bcrypt = require("bcrypt")
 const app = express();
 //let ajax = require("ajax");
 const port = 3000;
@@ -14,6 +15,47 @@ app.use(express.static("public_html"))
 app.use(express.json())
 app.use(fileupload());
 
+//const encrypt = async (password) => {
+//    await bcrypt.hash(password)
+//}
+
+app.get("/login", function(req, res){
+    let user = req.body.username;
+    let pass = req.body.pass;
+
+    //CryptoJS.AES.decrypt(code, CryptoJS.enc.Utf8.parse('your secret key'), { iv }).toString(CryptoJS.enc.Utf8)
+    //pass = encrypt(pass);
+    let new_user = false
+
+    let login = spawn('python', ['./aws.py', user, pass, new_user])
+
+    login.stdout.on("data", function(data){
+        console.log("Printing from Python...");
+        console.log(data.toString());
+        res.status(200)
+        res.send()
+    });
+    
+
+});
+
+app.post("/login", function(req,res){
+    //add new user password to 
+    let user = req.body.username
+    let pass = req.body.pass
+
+    //pass = encrypt(pass);
+    let new_user = true;
+    let login = spawn('python', ['./aws.py', user, pass, new_user])
+
+    login.stdout.on("data", function(data){
+        console.log("Printing from Python...");
+        console.log(data.toString());
+        res.status(200)
+        res.send()
+    });
+    
+});
 
 
 app.post("/upload", function(req,res){
@@ -77,7 +119,7 @@ app.post("/predict", function(req, res){
             res.end("<h1> No image found <h1>");
         } else {
             res.writeHead(200, {"Content-type": "image/jpg"});
-            res.end(content);
+            res.send(content);
         }
     })
     })
