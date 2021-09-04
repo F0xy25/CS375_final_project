@@ -17,4 +17,7 @@ subprocess.check_call([sys.executable, '-m', 'pip', 'install',
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 
 'boto3'])
 
-subprocess.check_call([sys.executable, 'cp', os.getcwd()+"/Key/aws_key.txt", "~./aws/credentials" ])
+print("AWSCLI")
+subprocess.check_call([sys.executable, "-m","pip", "install", "awscli"])
+
+#subprocess.check_call([sys.executable, "-m",'cp', os.getcwd()+"/Key/aws_key.txt", "~./aws/credentials" ])
