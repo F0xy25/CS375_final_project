@@ -75,7 +75,7 @@ def configure():
     s3 = boto3.resource('s3',aws_access_key_id=key_vals[0], aws_secret_access_key=key_vals[1])
     print("AWS CONNECTED")
     return s3, s3_client
-
+#!py
 if __name__ == "__main__":
     #arguments are, username, image file location
 
