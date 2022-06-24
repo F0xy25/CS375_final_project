@@ -68,7 +68,7 @@ submitbutton.addEventListener("click", function (){
     formData.append('verbose', Verbose);
     formData.append('username',user)
     console.log(formData);
-
+    let spinner = document.createElement("")
     //upload user selected file
     if (logged_in == false){
         fetch((reqURL), {

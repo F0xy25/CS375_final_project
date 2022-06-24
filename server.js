@@ -29,6 +29,12 @@ fs.readdir(img_path, (err, files) => {
     }
   });
 
+  //run python dependencies script
+let dependencies = spawn('python3', ['./dependencies.py'])
+dependencies.stdout.on("data", function(data){
+    console.log(data.toString());
+});
+
 app.post("/login.html", function(req, res){
     let user = req.body.username;
     let pass = req.body.pass;
@@ -43,7 +49,7 @@ app.post("/login.html", function(req, res){
         //res.end()
     }
     else{
-    let login = spawn('python', ['./aws.py', user, pass, new_user])
+    let login = spawn('python3', ['./aws.py', user, pass, new_user])
 
     login.stdout.on("data", function(data){
         console.log("Printing from Python...");
@@ -86,7 +92,7 @@ app.post("/register.html", function(req, res){
         //res.end()
     }
     else{
-    let login = spawn('python', ['./aws.py', user, pass, new_user])
+    let login = spawn('python3', ['./aws.py', user, pass, new_user])
 
     login.stdout.on("data", function(data){
         console.log("Printing from Python...");
@@ -137,7 +143,7 @@ app.post("/upload.html", function(req,res){
     if (username.trim() === ""){
         console.log("NOT SIGNED IN USER")
     }else{
-    let s3 = spawn('python', ['./aws.py', username, req.files.file.name, upload])
+    let s3 = spawn('python3', ['./aws.py', username, req.files.file.name, upload])
     }
 });
 
@@ -146,7 +152,7 @@ app.post("/upload.html", function(req,res){
 //return list of filenames
 app.post("/upload", function(req,res){
     console.log("BODY",req.body)
-    let s3 = spawn('python', ['./fetch.py', req.body.user])
+    let s3 = spawn('python3', ['./fetch.py', req.body.user])
 
     var hist_files = []
     i = 2;
@@ -180,7 +186,7 @@ app.post("/predict", function(req, res){
     console.log(image_filepath)
     //kick of child process that runs python script
     console.log("Starting Python script...");
-    let ml_data = spawn('python', ['./model-predict.py', model, image_filepath, new_filepath]);
+    let ml_data = spawn('python3', ['./model-predict.py', model, image_filepath, new_filepath]);
 
     //collect data from script
     ml_data.stdout.on("data", function(data){
@@ -194,7 +200,7 @@ app.post("/predict", function(req, res){
         res.statusMessage = processed_img_file
         res.send()
     }else{
-    let upload_results = spawn('python', ['./results_upload.py',username, new_filepath, req.files.file.name])
+    let upload_results = spawn('python3', ['./results_upload.py',username, new_filepath, req.files.file.name])
     //console.log("Python process terminated.");
 
     //put response within console output in order to function as delay
